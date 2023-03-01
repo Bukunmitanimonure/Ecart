@@ -1,6 +1,14 @@
-// <reference types="cypress" />
+/// <reference types="cypress" />
 
 import RegisterPage from "../../pages/register";
+// import RegisterData from "../../fixtures/register.json"
+let registerData
+
+Before(function(){
+  cy.fixture("register").then(function(registerDataResponse){
+    registerData = registerDataResponse;
+  })
+})
 
 describe("Automate Konga web app", function () {
 
@@ -17,15 +25,15 @@ describe("Automate Konga web app", function () {
 
         registerPage.clickOnSignUpText();
 
-        registerPage.setFirstName("");
+        registerPage.setFirstName(registerData.FirstName);
 
-        registerPage.setLastName("");
+        registerPage.setLastName(registerData.LastName);
 
-        registerPage.setPhoneNumber("");
+        registerPage.setPhoneNumber(registerData.PhoneNumber);
 
-        registerPage.setEmail("");
+        registerPage.setEmail(registerData.Email);
 
-        registerPage.setPassword("");
+        registerPage.setPassword(registerData.Password);
 
         registerPage.clickOnCreateAccountButton();
     })

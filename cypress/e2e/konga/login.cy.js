@@ -1,8 +1,19 @@
-// <reference types="cypress" />
+/// <reference types="cypress" />
 
 import LoginPage from "../../pages/login";
 
 describe("Automate Konga web app", function () {
+
+    // declare login variable
+    let loginData;
+
+    // get access to data using hook (before)
+    before(function() {
+        // get access to login data
+        cy.fixture("login").then(function(loginDataResponse) {
+            loginData = loginDataResponse;
+        })
+    })
 
     // create an instance (copy) of login class
     const loginPage = new LoginPage();
@@ -17,9 +28,9 @@ describe("Automate Konga web app", function () {
         loginPage.gotoLoginpage();
 
         
-        loginPage.setEmail("");
+        loginPage.setEmail(loginData.email);
 
-        loginPage.setPassword("");
+        loginPage.setPassword(loginData.password);
 
         loginPage.clickOnLoginButton();
     })
